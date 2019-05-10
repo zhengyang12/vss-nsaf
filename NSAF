@@ -1,0 +1,28 @@
+clear all;
+
+[A,fs] = audioread('fe.wav');
+
+[B,fs]  = audioread('ne.wav');
+
+dn = A';
+
+un = B';
+
+M = 1024;
+
+w0 = zeros(M,1);
+
+
+munsaf = 0.5;
+N = 16;
+L = 8*N;
+
+Sn = MSAFinit(zeros(M,1),munsaf,N,L);
+
+[en, Sn] = MSAFadapt(un,dn,Sn);
+
+
+audiowrite('nsafout.wav',en,fs);
+ 
+ 
+
